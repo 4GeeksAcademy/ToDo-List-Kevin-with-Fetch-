@@ -10,3 +10,25 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+.taskNews {
+    background-color: rgb(169, 185, 27);
+    justify-content: center;
+    font-size: 200%;
+    margin:2% auto;
+    width: 70%;
+    padding-top: 20px;
+    
+}
+.taskNews input {
+    display: block;
+    margin: auto ; 
+}
+
+.taskNews ul {
+    padding: 0; 
+}
+
+.taskNews li {
+    padding-left: 40%;
+    list-style-position: inside; 
+}

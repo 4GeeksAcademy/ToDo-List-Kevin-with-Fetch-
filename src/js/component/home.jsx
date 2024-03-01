@@ -1,24 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 //include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
 
 //create your first component
 const Home = () => {
+	const [task, setTask] = useState (["sacar al perro", "hacer la cama","preparar la cena"])
+	const [input, setInput] = useState ("")
+	const [isHovered, setIsHovered] = useState(false)
+
+	const handleChange = (event) => {setInput(event.target.value)}
+	console.log (input);
+	const handleKeyDown = (event) => {
+		if (event.key === "Enter") {
+			setTask ([...task,input])
+			setInput ("")
+		}
+	}
+
+
 	return (
-		<div className="text-center">
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+		<div className="taskNews">
+			<input type="text" name="" id="" onChange={handleChange} value={input} onKeyDown={handleKeyDown} />
+			<ul>
+				{task.map((tarea) => {
+					return (
+						<li onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+							{tarea}
+							{isHovered && <FaRegTrashAlt />}
+						</li>
+					)
+				})}
+			</ul>
 		</div>
 	);
 };
