@@ -9,20 +9,23 @@ const Home = () => {
 	////////SE USA PARA AGREGAR TAREAS A MI API///////
 
 	useEffect(() => {
-		fetch('https://playground.4geeks.com/apis/fake/todos/user/kevingabri', { method: "GET" })
-			.then(response => response.json())
-			.then(data => setTask(data))
-			.catch(error => ('Error fetching data:', error));
+		getTodo();	
 	}, []);
 
 	/* (probe usar este useEffect para arreglarlo)
 	useEffect ( () => {
 		updateList ();
 	}, [task]); */
+	const getTodo = async() => {
+		await fetch('https://playground.4geeks.com/apis/fake/todos/user/kevingabri', { method: "GET" })
+			.then(response => response.json())
+			.then(data => setTask(data))
+			.catch(error => ('Error fetching data:', error));
+	}
 
-	const updateList = () => {
+	const updateList = async() => {
 		console.log(task);
-		fetch('https://playground.4geeks.com/apis/fake/todos/user/kevingabri', {
+		await fetch('https://playground.4geeks.com/apis/fake/todos/user/kevingabri', {
 			method: "PUT",
 			body: JSON.stringify(task),
 			headers: {
@@ -33,10 +36,14 @@ const Home = () => {
 			.then(data => console.log(data))
 			.catch(error => ('Error fetching data:', error));
 	}
+	useEffect ( () => {
+		task.length ? updateList (): null
+	}, [task])
 
 	const handleKeyDown = (event) => {
 		if (event.key === "Enter") {
 			setTask([...task, { done: false, label: input }])
+			console.log (task)
 			updateList()
 			setInput([])
 		}
